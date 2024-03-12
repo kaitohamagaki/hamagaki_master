@@ -19,8 +19,8 @@ public class wasd : MonoBehaviour
     void ExecutePythonScript()
     {
         pythonProcess = new Process();
-        pythonProcess.StartInfo.FileName = @"C:\Users\kabot\AppData\Local\Programs\Python\Python310\python.exe"; // Pythonインタープリタへのパス
-        pythonProcess.StartInfo.Arguments = @"C:\Users\kabot\ramspeed.py"; // Pythonスクリプトのパス
+        pythonProcess.StartInfo.FileName = @"C:\Users\kabot\AppData\Local\Programs\Python\Python310\python.exe"; // Python繧､繝ｳ繧ｿ繝ｼ繝励Μ繧ｿ縺ｸ縺ｮ繝代せ
+        pythonProcess.StartInfo.Arguments = @"C:\Users\kabot\ramspeed.py"; // Python繧ｹ繧ｯ繝ｪ繝励ヨ縺ｮ繝代せ
         pythonProcess.StartInfo.UseShellExecute = false;
         pythonProcess.StartInfo.RedirectStandardOutput = true;
         pythonProcess.StartInfo.CreateNoWindow = true;
@@ -31,7 +31,7 @@ public class wasd : MonoBehaviour
 
     void OnOutputDataReceived(object sender, DataReceivedEventArgs e)
     {
-        UnityEngine.Debug.Log("Received data: " + e.Data); // この行を追加
+        UnityEngine.Debug.Log("Received data: " + e.Data); // 縺薙�ｮ陦後ｒ霑ｽ蜉
         if (!string.IsNullOrEmpty(e.Data))
         {
             try
