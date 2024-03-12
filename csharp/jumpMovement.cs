@@ -5,8 +5,8 @@ using UnityEngine;
 public class jumpMovement : MonoBehaviour
 {
     Process pr = null;
-    int label = 2; // Œ»Ý‚ÌƒAƒNƒVƒ‡ƒ“ƒ‰ƒxƒ‹
-    int jumpCount = 0; // ƒWƒƒƒ“ƒvƒ‰ƒxƒ‹‚ª˜A‘±‚ÅŒŸo‚³‚ê‚½‰ñ”
+    int label = 2; // ç¾åœ¨ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ©ãƒ™ãƒ«
+    int jumpCount = 0; // ã‚¸ãƒ£ãƒ³ãƒ—ãƒ©ãƒ™ãƒ«ãŒé€£ç¶šã§æ¤œå‡ºã•ã‚ŒãŸå›žæ•°
 
     public float moveSpeed = 3f;
     public float jumpForce = 5f;
@@ -25,12 +25,12 @@ public class jumpMovement : MonoBehaviour
         pr = new Process();
 
         pr.StartInfo.FileName = @"C:\Users\kabot\AppData\Local\Programs\Python\Python310\python.exe";
-        pr.StartInfo.Arguments = @"-u F:\MTG\personal\hamagaki\realtime.py"; // ƒXƒNƒŠƒvƒg‚ÌƒpƒX
+        pr.StartInfo.Arguments = @"-u F:\MTG\personal\hamagaki\realtime.py"; // ã‚¹ã‚¯ãƒªãƒ—ãƒˆã®ãƒ‘ã‚¹
 
         pr.StartInfo.CreateNoWindow = true;
         pr.StartInfo.UseShellExecute = false;
 
-        // •W€o—Í‚Æ•W€ƒGƒ‰[o—Í‚ðƒŠƒ_ƒCƒŒƒNƒg
+        // æ¨™æº–å‡ºåŠ›ã¨æ¨™æº–ã‚¨ãƒ©ãƒ¼å‡ºåŠ›ã‚’ãƒªãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆ
         pr.StartInfo.RedirectStandardOutput = true;
         pr.StartInfo.RedirectStandardError = true;
 
@@ -55,12 +55,12 @@ public class jumpMovement : MonoBehaviour
             if (output.Equals("walk"))
             {
                 label = 0;
-                jumpCount = 0; // ƒWƒƒƒ“ƒvƒJƒEƒ“ƒg‚ðƒŠƒZƒbƒg
+                jumpCount = 0; // ã‚¸ãƒ£ãƒ³ãƒ—ã‚«ã‚¦ãƒ³ãƒˆã‚’ãƒªã‚»ãƒƒãƒˆ
             }
             else if (output.Equals("jump"))
             {
                 label = 1;
-                jumpCount++; // ƒWƒƒƒ“ƒvƒ‰ƒxƒ‹‚ªŒŸo‚³‚ê‚½‚çƒJƒEƒ“ƒgƒAƒbƒv
+                jumpCount++; // ã‚¸ãƒ£ãƒ³ãƒ—ãƒ©ãƒ™ãƒ«ãŒæ¤œå‡ºã•ã‚ŒãŸã‚‰ã‚«ã‚¦ãƒ³ãƒˆã‚¢ãƒƒãƒ—
             }
         }
     }
@@ -84,16 +84,16 @@ public class jumpMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (labelReceived) // ƒ‰ƒxƒ‹‚ª­‚È‚­‚Æ‚àˆê“xŽó‚¯Žæ‚ç‚ê‚½ê‡‚Ì‚ÝŽÀs
+        if (labelReceived) // ãƒ©ãƒ™ãƒ«ãŒå°‘ãªãã¨ã‚‚ä¸€åº¦å—ã‘å–ã‚‰ã‚ŒãŸå ´åˆã®ã¿å®Ÿè¡Œ
         {
             if (label == 1 && jumpCount >= 9 && Mathf.Abs(rb.velocity.y) < 0.05f)
             {
                 rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-                jumpCount = 0; // ƒWƒƒƒ“ƒvŒã‚ÍƒJƒEƒ“ƒg‚ðƒŠƒZƒbƒg
+                jumpCount = 0; // ã‚¸ãƒ£ãƒ³ãƒ—å¾Œã¯ã‚«ã‚¦ãƒ³ãƒˆã‚’ãƒªã‚»ãƒƒãƒˆ
             }
             else
             {
-                // ƒWƒƒƒ“ƒv‚ÌðŒ‚ª–ž‚½‚³‚ê‚È‚¢ê‡AƒvƒŒƒCƒ„[‚ð‰E•ûŒü‚ÉˆÚ“®‚³‚¹‚é
+                // ã‚¸ãƒ£ãƒ³ãƒ—ã®æ¡ä»¶ãŒæº€ãŸã•ã‚Œãªã„å ´åˆã€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’å³æ–¹å‘ã«ç§»å‹•ã•ã›ã‚‹
                 rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
             }
         }
