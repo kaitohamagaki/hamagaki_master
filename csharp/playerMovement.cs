@@ -15,7 +15,7 @@ public class playerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         ExecutePythonScript();
-        UnityEngine.Debug.Log("Some debug message");        // Às‚ªŠJn‚³‚ê‚½‚±‚Æ‚ğƒƒO‚Éo—Í
+        UnityEngine.Debug.Log("Some debug message");        // å®Ÿè¡ŒãŒé–‹å§‹ã•ã‚ŒãŸã“ã¨ã‚’ãƒ­ã‚°ã«å‡ºåŠ›
     }
 
 
@@ -24,34 +24,34 @@ public class playerMovement : MonoBehaviour
         pr = new Process();
 
         pr.StartInfo.FileName = @"C:\Users\kabot\AppData\Local\Programs\Python\Python310\python.exe";
-        pr.StartInfo.Arguments = @" -u F:\MTG\personal\hamagaki\realtime.py"; //l‚É‰‚¶‚ÄƒpƒX‚ğ•ÏX
+        pr.StartInfo.Arguments = @" -u F:\MTG\personal\hamagaki\realtime.py"; //äººã«å¿œã˜ã¦ãƒ‘ã‚¹ã‚’å¤‰æ›´
 
 
 
         pr.StartInfo.CreateNoWindow = true;
         pr.StartInfo.UseShellExecute = false;
 
-        // •W€o—Í‚Æ•W€ƒGƒ‰[o—Í‚ğƒŠƒ_ƒCƒŒƒNƒg‚·‚é
+        // æ¨™æº–å‡ºåŠ›ã¨æ¨™æº–ã‚¨ãƒ©ãƒ¼å‡ºåŠ›ã‚’ãƒªãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆã™ã‚‹
         pr.StartInfo.RedirectStandardOutput = true;
         pr.StartInfo.RedirectStandardError = true;
 
         pr.OutputDataReceived += process_DataReceived;
-        pr.ErrorDataReceived += process_ErrorReceived;  // ƒGƒ‰[o—Í‚ÌƒCƒxƒ“ƒgƒnƒ“ƒhƒ‰‚ğ’Ç‰Á
+        pr.ErrorDataReceived += process_ErrorReceived;  // ã‚¨ãƒ©ãƒ¼å‡ºåŠ›ã®ã‚¤ãƒ™ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ©ã‚’è¿½åŠ 
 
         pr.EnableRaisingEvents = true;
 
         pr.Start();
 
-        pr.BeginOutputReadLine();  // •W€o—Í‚Ì“Ç‚İæ‚è‚ğŠJn
-        pr.BeginErrorReadLine();   // •W€ƒGƒ‰[o—Í‚Ì“Ç‚İæ‚è‚ğŠJn
+        pr.BeginOutputReadLine();  // æ¨™æº–å‡ºåŠ›ã®èª­ã¿å–ã‚Šã‚’é–‹å§‹
+        pr.BeginErrorReadLine();   // æ¨™æº–ã‚¨ãƒ©ãƒ¼å‡ºåŠ›ã®èª­ã¿å–ã‚Šã‚’é–‹å§‹
     }
 
     public void process_DataReceived(object sender, DataReceivedEventArgs e)
     {
         string output = e.Data;
-        if (!string.IsNullOrEmpty(output)) // ‹ó‚Å‚È‚¢‚±‚Æ‚ğŠm”F
+        if (!string.IsNullOrEmpty(output)) // ç©ºã§ãªã„ã“ã¨ã‚’ç¢ºèª
         {
-            // print("Output: " + output); // ó‚¯æ‚Á‚½ƒf[ƒ^‚ğƒƒO‚Éo—Í
+            // print("Output: " + output); // å—ã‘å–ã£ãŸãƒ‡ãƒ¼ã‚¿ã‚’ãƒ­ã‚°ã«å‡ºåŠ›
             if (output.Equals("walk"))
             {
                 // print("Movement activated");
@@ -65,7 +65,7 @@ public class playerMovement : MonoBehaviour
         }
     }
 
-    // ’Ç‰Á‚µ‚½ƒGƒ‰[o—Í‚ÌƒCƒxƒ“ƒgƒnƒ“ƒhƒ‰
+    // è¿½åŠ ã—ãŸã‚¨ãƒ©ãƒ¼å‡ºåŠ›ã®ã‚¤ãƒ™ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ©
     public void process_ErrorReceived(object sender, DataReceivedEventArgs e)
     {
         string errorOutput = e.Data;
@@ -78,16 +78,16 @@ public class playerMovement : MonoBehaviour
 
     void Update()
     {
-        if (label == 0) // "walk" ‚Æ”»’f‚³‚ê‚½ê‡
+        if (label == 0) // "walk" ã¨åˆ¤æ–­ã•ã‚ŒãŸå ´åˆ
         {
-            // í‚É‰E•ûŒü‚ÉˆÚ“®
+            // å¸¸ã«å³æ–¹å‘ã«ç§»å‹•
             rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
         }
 
     }
     void FixedUpdate()
     {
-        if (label == 1 && Mathf.Abs(rb.velocity.y) < 0.05f) // 0.001f ‚©‚ç 0.05f ‚É•ÏX
+        if (label == 1 && Mathf.Abs(rb.velocity.y) < 0.05f) // 0.001f ã‹ã‚‰ 0.05f ã«å¤‰æ›´
         {
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
