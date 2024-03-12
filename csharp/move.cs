@@ -10,16 +10,16 @@ public class move : MonoBehaviour
     public float moveSpeed = 2f;
     public float jumpForce = 12f;
     private Rigidbody2D rb;
-    private bool isGrounded;  // ’n–Ê‚ÉÚ’n‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
+    private bool isGrounded;  // åœ°é¢ã«æ¥åœ°ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹
 
-    private int jumpCount = 0;  // ƒWƒƒƒ“ƒv”»’è‚ÌƒJƒEƒ“ƒ^
-    private int requiredJumps = 3;  // ƒWƒƒƒ“ƒv‚ğÀs‚·‚é‚½‚ß‚É•K—v‚È˜A‘±”»’è”
+    private int jumpCount = 0;  // ã‚¸ãƒ£ãƒ³ãƒ—åˆ¤å®šã®ã‚«ã‚¦ãƒ³ã‚¿
+    private int requiredJumps = 3;  // ã‚¸ãƒ£ãƒ³ãƒ—ã‚’å®Ÿè¡Œã™ã‚‹ãŸã‚ã«å¿…è¦ãªé€£ç¶šåˆ¤å®šæ•°
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         ExecutePythonScript();
-        UnityEngine.Debug.Log("Some debug message");  // Às‚ªŠJn‚³‚ê‚½‚±‚Æ‚ğƒƒO‚Éo—Í
+        UnityEngine.Debug.Log("Some debug message");  // å®Ÿè¡ŒãŒé–‹å§‹ã•ã‚ŒãŸã“ã¨ã‚’ãƒ­ã‚°ã«å‡ºåŠ›
     }
 
     public void ExecutePythonScript()
@@ -27,43 +27,43 @@ public class move : MonoBehaviour
         pr = new Process();
 
         pr.StartInfo.FileName = @"C:\Users\kabot\AppData\Local\Programs\Python\Python310\python.exe";
-        pr.StartInfo.Arguments = @" -u F:\MTG\personal\ooyoshi\realtime.py"; //l‚É‰‚¶‚ÄƒpƒX‚ğ•ÏX
+        pr.StartInfo.Arguments = @" -u F:\MTG\personal\ooyoshi\realtime.py"; //äººã«å¿œã˜ã¦ãƒ‘ã‚¹ã‚’å¤‰æ›´
 
         pr.StartInfo.CreateNoWindow = true;
         pr.StartInfo.UseShellExecute = false;
 
-        // •W€o—Í‚Æ•W€ƒGƒ‰[o—Í‚ğƒŠƒ_ƒCƒŒƒNƒg‚·‚é
+        // æ¨™æº–å‡ºåŠ›ã¨æ¨™æº–ã‚¨ãƒ©ãƒ¼å‡ºåŠ›ã‚’ãƒªãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆã™ã‚‹
         pr.StartInfo.RedirectStandardOutput = true;
         pr.StartInfo.RedirectStandardError = true;
 
         pr.OutputDataReceived += process_DataReceived;
-        pr.ErrorDataReceived += process_ErrorReceived;  // ƒGƒ‰[o—Í‚ÌƒCƒxƒ“ƒgƒnƒ“ƒhƒ‰‚ğ’Ç‰Á
+        pr.ErrorDataReceived += process_ErrorReceived;  // ã‚¨ãƒ©ãƒ¼å‡ºåŠ›ã®ã‚¤ãƒ™ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ©ã‚’è¿½åŠ 
 
         pr.EnableRaisingEvents = true;
 
         pr.Start();
 
-        pr.BeginOutputReadLine();  // •W€o—Í‚Ì“Ç‚İæ‚è‚ğŠJn
-        pr.BeginErrorReadLine();   // •W€ƒGƒ‰[o—Í‚Ì“Ç‚İæ‚è‚ğŠJn
+        pr.BeginOutputReadLine();  // æ¨™æº–å‡ºåŠ›ã®èª­ã¿å–ã‚Šã‚’é–‹å§‹
+        pr.BeginErrorReadLine();   // æ¨™æº–ã‚¨ãƒ©ãƒ¼å‡ºåŠ›ã®èª­ã¿å–ã‚Šã‚’é–‹å§‹
     }
 
     public void process_DataReceived(object sender, DataReceivedEventArgs e)
     {
         string output = e.Data;
-        if (!string.IsNullOrEmpty(output)) // ‹ó‚Å‚È‚¢‚±‚Æ‚ğŠm”F
+        if (!string.IsNullOrEmpty(output)) // ç©ºã§ãªã„ã“ã¨ã‚’ç¢ºèª
         {
-            // ó‚¯æ‚Á‚½ƒf[ƒ^‚ğƒƒO‚Éo—Í
+            // å—ã‘å–ã£ãŸãƒ‡ãƒ¼ã‚¿ã‚’ãƒ­ã‚°ã«å‡ºåŠ›
             UnityEngine.Debug.Log("Output: " + output);
 
             if (output.Equals("walk"))
             {
-                // Movement activated ƒƒbƒZ[ƒW‚ğƒƒO‚Éo—Í
+                // Movement activated ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ãƒ­ã‚°ã«å‡ºåŠ›
                 UnityEngine.Debug.Log("Movement activated");
                 label = 0;
             }
             else if (output.Equals("jump"))
             {
-                // Jump activated ƒƒbƒZ[ƒW‚ğƒƒO‚Éo—Í
+                // Jump activated ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ãƒ­ã‚°ã«å‡ºåŠ›
                 UnityEngine.Debug.Log("Jump activated");
                 label = 1;
             }
@@ -75,35 +75,35 @@ public class move : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(e.Data))
         {
-            // ƒGƒ‰[ˆ—‚ğ‚±‚±‚É‹Lq‚µ‚Ü‚·B
-            // —á: ó‚¯æ‚Á‚½ƒGƒ‰[ƒƒbƒZ[ƒW‚ğƒƒO‚Éo—Í
+            // ã‚¨ãƒ©ãƒ¼å‡¦ç†ã‚’ã“ã“ã«è¨˜è¿°ã—ã¾ã™ã€‚
+            // ä¾‹: å—ã‘å–ã£ãŸã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ãƒ­ã‚°ã«å‡ºåŠ›
             UnityEngine.Debug.LogError("Error from script: " + e.Data);
         }
     }
 
-    // ˆÈ‰º‚ÍŒ³‚ÌƒR[ƒh‚Ì‘±‚«‚Å‚·
+    // ä»¥ä¸‹ã¯å…ƒã®ã‚³ãƒ¼ãƒ‰ã®ç¶šãã§ã™
     void Update()
     {
-        if (label != 1)  // ƒWƒƒƒ“ƒvˆÈŠO‚Ì”»’è‚ªs‚í‚ê‚½ê‡
+        if (label != 1)  // ã‚¸ãƒ£ãƒ³ãƒ—ä»¥å¤–ã®åˆ¤å®šãŒè¡Œã‚ã‚ŒãŸå ´åˆ
         {
-            jumpCount = 0;  // ƒWƒƒƒ“ƒvƒJƒEƒ“ƒg‚ğƒŠƒZƒbƒg
+            jumpCount = 0;  // ã‚¸ãƒ£ãƒ³ãƒ—ã‚«ã‚¦ãƒ³ãƒˆã‚’ãƒªã‚»ãƒƒãƒˆ
         }
     }
 
     void FixedUpdate()
     {
-        if (label == 0)  // "walk" ‚Æ”»’f‚³‚ê‚½ê‡
+        if (label == 0)  // "walk" ã¨åˆ¤æ–­ã•ã‚ŒãŸå ´åˆ
         {
-            // í‚É‰E•ûŒü‚ÉˆÚ“®
+            // å¸¸ã«å³æ–¹å‘ã«ç§»å‹•
             rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
         }
 
-        if (jumpCount >= requiredJumps && isGrounded)  // ƒWƒƒƒ“ƒv”»’è‚ª˜A‘±‚µ‚Äs‚í‚êA‚©‚ÂƒvƒŒƒCƒ„[‚ª’n–Ê‚É‚¢‚éê‡
+        if (jumpCount >= requiredJumps && isGrounded)  // ã‚¸ãƒ£ãƒ³ãƒ—åˆ¤å®šãŒé€£ç¶šã—ã¦è¡Œã‚ã‚Œã€ã‹ã¤ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒåœ°é¢ã«ã„ã‚‹å ´åˆ
         {
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-            label = 2;  // ƒWƒƒƒ“ƒvŒã‚Íƒ‰ƒxƒ‹‚ğƒŠƒZƒbƒg
-            jumpCount = 0;  // ƒWƒƒƒ“ƒvƒJƒEƒ“ƒg‚ğƒŠƒZƒbƒg
-            isGrounded = false;  // ƒWƒƒƒ“ƒv’¼Œã‚Í’n–Ê‚©‚ç—£‚ê‚é
+            label = 2;  // ã‚¸ãƒ£ãƒ³ãƒ—å¾Œã¯ãƒ©ãƒ™ãƒ«ã‚’ãƒªã‚»ãƒƒãƒˆ
+            jumpCount = 0;  // ã‚¸ãƒ£ãƒ³ãƒ—ã‚«ã‚¦ãƒ³ãƒˆã‚’ãƒªã‚»ãƒƒãƒˆ
+            isGrounded = false;  // ã‚¸ãƒ£ãƒ³ãƒ—ç›´å¾Œã¯åœ°é¢ã‹ã‚‰é›¢ã‚Œã‚‹
         }
     }
 
